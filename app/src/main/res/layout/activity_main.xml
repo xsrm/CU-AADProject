@@ -25,6 +25,6 @@
         android:fontFamily="sans-serif-black"
         android:text="FITNESS LOCATOR"
         android:textSize="20sp"
-        android:textColor="@color/colorWhite" />
+        android:textColor="@android:color/white" />
 
 </RelativeLayout>

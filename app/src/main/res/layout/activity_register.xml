@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/layout_top_padding"
+    android:paddingLeft="@dimen/layout_padding"
+    android:paddingRight="@dimen/layout_padding"
+    android:background="@drawable/gradient_main"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_top"
+        android:fontFamily="sans-serif-black"
+        android:text="SIGN UP"
+        android:textSize="@dimen/text_large"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/textViewEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewTitle"
+        android:layout_marginTop="@dimen/margin_top"
+        android:fontFamily="sans-serif-black"
+        android:text="EMAIL ADDRESS"
+        android:textSize="@dimen/text_small"
+        android:textColor="@android:color/white" />
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewEmail"
+        android:layout_marginLeft="@dimen/margin_negative"
+        android:layout_marginRight="@dimen/margin_negative"
+        android:backgroundTint="@android:color/white"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:fontFamily="sans-serif-condensed-light"
+        android:textSize="@dimen/text_medium"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/textViewPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextEmail"
+        android:layout_marginTop="@dimen/margin_top"
+        android:fontFamily="sans-serif-black"
+        android:text="PASSWORD"
+        android:textSize="@dimen/text_small"
+        android:textColor="@android:color/white" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewPassword"
+        android:layout_marginLeft="@dimen/margin_negative"
+        android:layout_marginRight="@dimen/margin_negative"
+        android:layout_marginBottom="@dimen/margin_very_small"
+        android:backgroundTint="@android:color/white"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:fontFamily="sans-serif-condensed-light"
+        android:textSize="@dimen/text_medium"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/buttonLogin"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/editTextPassword"
+        android:layout_marginTop="@dimen/margin_top"
+        android:text="Register"
+        android:onClick=""
+        android:background="@drawable/button_box"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="@dimen/text_small_medium"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/textViewSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonLogin"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_centerInParent="true"
+        android:text="Have account? Sign in!"
+        android:textSize="@dimen/text_small"
+        android:textColor="@android:color/white"/>
+
+</RelativeLayout>
