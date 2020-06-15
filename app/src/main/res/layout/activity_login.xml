@@ -18,7 +18,7 @@
         android:fontFamily="sans-serif-black"
         android:text="SIGN IN"
         android:textSize="@dimen/text_large"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"/>
 
     <TextView
         android:id="@+id/textViewLoginEmail"
