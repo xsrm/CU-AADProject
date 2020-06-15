@@ -2,12 +2,23 @@
 <resources>
     <dimen name="layout_padding">35dp</dimen>
     <dimen name="layout_top_padding">55dp</dimen>
+    <dimen name="sidebar_header_padding">15dp</dimen>
+    <dimen name="sidebar_padding_extra_small">3dp</dimen>
+    <dimen name="sidebar_padding_small">6dp</dimen>
+    <dimen name="sidebar_padding_medium">8dp</dimen>
+
     <dimen name="margin_negative">-4dp</dimen>
     <dimen name="margin_top">18dp</dimen>
     <dimen name="margin_very_small">5dp</dimen>
     <dimen name="margin_small">10dp</dimen>
+
     <dimen name="text_small">14sp</dimen>
     <dimen name="text_small_medium">20sp</dimen>
     <dimen name="text_medium">22sp</dimen>
     <dimen name="text_large">32sp</dimen>
+
+    <dimen name="sidebar_header_size">170dp</dimen>
+
+    <dimen name="elevation_sidebar">4dp</dimen>
+    <dimen name="elevation_text">8dp</dimen>
 </resources>
