@@ -44,7 +44,6 @@ public class User {
         String[] splitName = name.split(" ");
         int arrayLength = splitName.length;
         for (int i = 0; i < arrayLength; i++) {
-            System.out.println("i = " + i);
             String first = splitName[i].substring(0, 1).toUpperCase();
             String remaining = splitName[i].substring(1).toLowerCase();
             if (i == (arrayLength - 1)) {
