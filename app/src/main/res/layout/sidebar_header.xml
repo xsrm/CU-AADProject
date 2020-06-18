@@ -1,36 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/sidebarHeader"
     android:layout_width="match_parent"
     android:layout_height="@dimen/sidebar_header_size"
-    android:padding="@dimen/sidebar_header_padding"
+    android:background="@drawable/gradient_main"
     android:orientation="vertical"
-    android:gravity="bottom"
-    android:background="@drawable/gradient_main">
+    android:padding="@dimen/sidebar_header_padding">
 
-    <ImageView
+    <RelativeLayout
+        android:id="@+id/relativeProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher_round" />
+        android:layout_marginTop="@dimen/margin_top">
+
+        <ImageView
+            android:layout_width="@dimen/circle_dim"
+            android:layout_height="@dimen/circle_dim"
+            android:src="@drawable/circle_outline" />
+
+        <TextView
+            android:id="@+id/textProfilePicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="sans-serif-thin"
+            android:text="..."
+            android:textColor="@color/colorPrimaryMono"
+            android:textSize="@dimen/text_large" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linearProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|bottom"
+        android:paddingStart="@dimen/sidebar_padding_extra_small"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
 
     <TextView
         android:id="@+id/textViewProfileName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/sidebar_padding_medium"
-        android:paddingLeft="@dimen/sidebar_padding_extra_small"
         android:text="Retrieving name..."
-        android:textSize="@dimen/text_small"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_small_16" />
 
     <TextView
         android:id="@+id/textViewProfileEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/sidebar_padding_extra_small"
         android:text="Retrieving email..."
-        android:textSize="@dimen/text_small"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_small_16" />
+    </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
