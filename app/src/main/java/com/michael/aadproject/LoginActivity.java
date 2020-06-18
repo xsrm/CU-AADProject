@@ -92,24 +92,42 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                                 Intent toHome = new Intent(LoginActivity.this,
                                         HomeActivity.class);
-                                toHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                toHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                                        Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(toHome);
                                 finish();
                             } else {
                                 progressBar.setVisibility(View.INVISIBLE);
-                                String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
-                                switch (errorCode) {
-                                    case "ERROR_USER_NOT_FOUND":
-                                        editEmail.setError("Email is not registered. Please register or enter a registered email address.");
-                                        EntryHelper.saveEmail(sharedPreferences, EMAIL_KEY, editEmail);
-                                        break;
-                                    case "ERROR_WRONG_PASSWORD":
-                                        editPassword.setError("Incorrect password. Please try again.");
-                                        editPassword.setText("");
-                                        break;
-                                    default:
-                                        Toast.makeText(getBaseContext(), ((FirebaseAuthException) task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+
+                                if (task.getException() instanceof FirebaseAuthException) {
+                                    String errorCode = ((FirebaseAuthException)
+                                            task.getException()).getErrorCode();
+                                    switch (errorCode) {
+                                        case "ERROR_USER_NOT_FOUND":
+                                            editEmail.setError("Email is not registered. " +
+                                                    "Please register or enter a registered " +
+                                                    "email address.");
+                                            EntryHelper.saveEmail(sharedPreferences, EMAIL_KEY,
+                                                    editEmail);
+                                            break;
+                                        case "ERROR_WRONG_PASSWORD":
+                                            editPassword.setError("Incorrect password. Please " +
+                                                    "try again.");
+                                            editPassword.setText("");
+                                            break;
+                                        default:
+                                            Toast.makeText(getBaseContext(),
+                                                    ((FirebaseAuthException) task.
+                                                            getException()).getMessage(),
+                                                    Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    Toast.makeText(getBaseContext(), (task.getException()).
+                                            getMessage(), Toast.LENGTH_SHORT).show();
                                 }
+
+                                //String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
+
                             }
                         }
                     });
