@@ -1,17 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/margin_top"
+    android:layout_marginRight="@dimen/margin_top">
 
     <TextView
         android:id="@+id/textViewWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_top"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginBottom="@dimen/margin_top"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_medium_large"
+        android:layout_marginLeft="@dimen/margin_very_small"
         android:fontFamily="@font/montserrat"
         android:text="Welcome!"
+        android:textSize="@dimen/text_small_medium" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLocationSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewWelcome">
+
+        <EditText
+            android:id="@+id/editTextLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search_box"
+            android:fontFamily="sans-serif-condensed-light"
+            android:hint="Enter your current location here"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:padding="@dimen/sidebar_padding_large"
+            android:paddingStart="@dimen/drawable_padding"
+            android:paddingEnd="@dimen/drawable_padding"
+            android:textColor="@color/colorDimGray"
+            android:textSize="@dimen/text_small_18" />
+
+        <ImageView
+            android:id="@+id/imageSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:paddingLeft="@dimen/margin_medium"
+            android:src="@drawable/ic_navigation"
+            android:tint="@color/colorPrimaryDark" />
+
+        <ImageView
+            android:id="@+id/imageCurrentLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:paddingRight="@dimen/margin_medium"
+            android:src="@drawable/ic_current_location"
+            android:tint="@color/colorPrimaryDark" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textViewTitleAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relativeLocationSearch"
+        android:layout_marginStart="@dimen/margin_very_small"
+        android:layout_marginTop="@dimen/margin_very_small"
+        android:layout_marginBottom="@dimen/margin_top"
+        android:fontFamily="sans-serif-condensed-light"
+        android:text="Address:"
+        android:textSize="@dimen/text_small" />
+
+    <TextView
+        android:id="@+id/textViewAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relativeLocationSearch"
+        android:layout_toEndOf="@id/textViewTitleAddress"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_very_small"
+        android:layout_marginBottom="@dimen/margin_top"
+        android:fontFamily="sans-serif-condensed-light"
+        android:text="NONE"
         android:textSize="@dimen/text_small" />
 
 </RelativeLayout>
