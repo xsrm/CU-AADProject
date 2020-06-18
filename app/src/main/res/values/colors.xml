@@ -4,4 +4,8 @@
     <color name="colorPrimaryMono">#e68898</color>
     <color name="colorPrimaryDark">#FF647F</color>
     <color name="colorAccent">#ffc3a0</color>
+    <color name="colorAccentMono">#e69362</color>
+    <color name="colorDimGray">#696969</color>
+    <color name="colorGray">#808080</color>
+    <color name="colorLightGray">#A9A9A9</color>
 </resources>
