@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="4dp">
+
+    <RelativeLayout
+        android:id="@+id/relativeVenue"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin_very_small" >
+
+        <ImageView
+            android:id="@+id/imageVenue"
+            android:layout_width="@dimen/image_size"
+            android:layout_height="@dimen/image_size"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:padding="@dimen/sidebar_padding_small"/>
+
+        <TextView
+            android:id="@+id/textViewVenueName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/imageVenue"
+            android:fontFamily="@font/montserrat"
+            android:text="Venue Name"
+            android:textSize="@dimen/venue_text_size"/>
+
+        <TextView
+            android:id="@+id/textViewVenueAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewVenueName"
+            android:layout_toRightOf="@id/imageVenue"
+            android:fontFamily="@font/roboto_light"
+            android:text="Venue Address"
+            android:textSize="@dimen/venue_text_details_size"/>
+
+        <TextView
+            android:id="@+id/textViewVenueRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewVenueAddress"
+            android:layout_toRightOf="@id/imageVenue"
+            android:fontFamily="@font/roboto_light"
+            android:text="Venue Rating"
+            android:textSize="@dimen/venue_text_details_size"/>
+
+        <TextView
+            android:id="@+id/textViewVenueDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/textViewVenueName"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/margin_very_small"
+            android:fontFamily="@font/roboto_light"
+            android:text="Venue Distance"
+            android:textSize="@dimen/venue_text_details_size" />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
