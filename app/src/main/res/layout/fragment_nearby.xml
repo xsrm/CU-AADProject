@@ -2,6 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="@dimen/margin_top"
     android:layout_marginLeft="@dimen/margin_top"
     android:layout_marginRight="@dimen/margin_top">
 
@@ -34,6 +36,7 @@
             android:padding="@dimen/sidebar_padding_large"
             android:paddingStart="@dimen/drawable_padding"
             android:paddingEnd="@dimen/drawable_padding"
+            android:text=""
             android:textColor="@color/colorDimGray"
             android:textSize="@dimen/text_small_18" />
 
@@ -72,6 +75,8 @@
 
     <TextView
         android:id="@+id/textViewAddress"
+        android:minLines="2"
+        android:maxLines="2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/relativeLocationSearch"
@@ -83,5 +88,39 @@
         android:fontFamily="sans-serif-condensed-light"
         android:text="NONE"
         android:textSize="@dimen/text_small" />
+
+    <TextView
+        android:id="@+id/textViewSuggested"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_medium_large"
+        android:layout_marginLeft="@dimen/margin_very_small"
+        android:layout_below="@id/textViewAddress"
+        android:fontFamily="@font/montserrat"
+        android:text="Featured locations"
+        android:textSize="@dimen/text_small_medium" />
+    
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerVenueDisplay"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewSuggested"
+        android:padding="@dimen/margin_small"
+        />
+
+    <TextView
+        android:id="@+id/textViewAllLocations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_medium_large"
+        android:layout_marginLeft="@dimen/margin_very_small"
+        android:layout_below="@id/recyclerVenueDisplay"
+        android:fontFamily="@font/montserrat"
+        android:text="All locations"
+        android:textSize="@dimen/text_small_medium" />
 
 </RelativeLayout>
