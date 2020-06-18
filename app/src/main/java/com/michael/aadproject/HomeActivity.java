@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,8 +27,11 @@ import com.google.firebase.database.ValueEventListener;
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private TextView textUserName;
     private TextView textUserEmail;
-    private NavigationView navigationView;
+    private TextView textUserInitial;
 
+    private NavigationView navigationView;
+    private View relativeProfile;
+    private View linearProfile;
     private DrawerLayout drawerLayout;
 
     private DatabaseReference mDatabase;
@@ -41,8 +45,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         navigationView = findViewById(R.id.navigationView);
-        textUserName = navigationView.getHeaderView(0).findViewById(R.id.textViewProfileName);
-        textUserEmail = navigationView.getHeaderView(0).findViewById(R.id.textViewProfileEmail);
+        relativeProfile = navigationView.getHeaderView(0).findViewById(R.id.relativeProfile);
+        textUserInitial = relativeProfile.findViewById(R.id.textProfilePicture);
+        linearProfile = navigationView.getHeaderView(0).findViewById(R.id.linearProfile);
+        textUserName = linearProfile.findViewById(R.id.textViewProfileName);
+        textUserEmail = linearProfile.findViewById(R.id.textViewProfileEmail);
 
         drawerLayout = findViewById(R.id.drawerLayout);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
@@ -58,6 +65,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User retrievedUser = dataSnapshot.getValue(User.class);
+                textUserInitial.setText(retrievedUser.getName().substring(0, 1));
                 textUserName.setText(retrievedUser.getName() + " " + retrievedUser.getSurname());
                 textUserEmail.setText(retrievedUser.getEmail());
             }
