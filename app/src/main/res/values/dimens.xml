@@ -12,6 +12,7 @@
 
     <dimen name="margin_negative">-4dp</dimen>
     <dimen name="margin_top">18dp</dimen>
+    <dimen name="margin_extra_small">3dp</dimen>
     <dimen name="margin_very_small">5dp</dimen>
     <dimen name="margin_small">10dp</dimen>
     <dimen name="margin_medium">14dp</dimen>
@@ -32,7 +33,10 @@
 
     <dimen name="circle_dim">75dp</dimen>
 
-    <dimen name="image_size">75dp</dimen>
-    <dimen name="venue_text_size">18sp</dimen>
-    <dimen name="venue_text_details_size">14sp</dimen>
+    <dimen name="card_width">250dp</dimen>
+    <dimen name="card_height">200dp</dimen>
+    <dimen name="image_width">225dp</dimen>
+    <dimen name="image_height">120dp</dimen>
+    <dimen name="venue_text_size">15sp</dimen>
+    <dimen name="venue_text_details_size">12sp</dimen>
 </resources>
