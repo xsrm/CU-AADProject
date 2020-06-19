@@ -42,7 +42,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -71,13 +70,12 @@ public class NearbyFragment extends Fragment {
 
     private Date lastUpdate = null;
 
-    private BufferedReader bufferedReader;
-    private StringBuilder stringBuilder;
-    private String result;
-
     private RecyclerView recyclerView;
+    private RecyclerView recyclerViewBowl;
     private RecyclerView.Adapter recyclerAdapter;
     private RecyclerView.LayoutManager recyclerManager;
+    private TextView textBlank;
+    private TextView textBlankBowl;
 
     private final int PLAY_SERVICES_RESOLUTION_REQUEST = 1;
     private final int LOCATION_PERMISSION_REQUEST = 10;
@@ -272,7 +270,7 @@ public class NearbyFragment extends Fragment {
         }
         System.out.println(diffInMs);
         System.out.println(diffInDays);
-        String message =  "   (last updated " + daysAgo + " at " + tf.format(updateDate) + ")";
+        String message =  "  (last updated " + daysAgo + " at " + tf.format(updateDate) + ")";
         return message;
     }
 
@@ -293,48 +291,23 @@ public class NearbyFragment extends Fragment {
     }
 
     private void retrieveNearbyVenues(Location location) {
+        textBlank = getView().findViewById(R.id.textViewBlank);
+        textBlankBowl = getView().findViewById(R.id.textViewBlankBowl);
         if (location != null) {
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
 
-            final StringBuilder urlBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
-            urlBuilder.append("key=" + getString(R.string.API_KEY));
-            urlBuilder.append("&location=" + latitude + "," + longitude);
-            urlBuilder.append("&rankby=distance");
-            //urlBuilder.append("&radius=4000");
-            //urlBuilder.append("&name=");
-            urlBuilder.append("&type=gym");
-
-            String url = urlBuilder.toString();
+            String gymUrl = placesUrlBuilder(latitude, longitude, "gym");
 
             Object getNearbyArgs[] = new Object[2];
-            getNearbyArgs[0] = url;
+            getNearbyArgs[0] = gymUrl;
             getNearbyArgs[1] = location;
 
             GetNearbyVenues getNearbyVenues = new GetNearbyVenues(new GetNearbyVenues.taskResponse() {
                 @Override
                 public void transferResults(ArrayList venuesArray) {
-                    ArrayList<Venue> finalVenueList = new ArrayList<>();
-                    for (int i = 0; i < venuesArray.size(); i++) {
-                        List venue = (List) venuesArray.get(i);
-                        String name = (String) venue.get(0);
-                        String address = (String) venue.get(1);
-                        float distance = Float.parseFloat((String) venue.get(2));
-                        String status = (String) venue.get(3);
-                        float rating = Float.parseFloat((String) venue.get(4));
-                        float count = Float.parseFloat((String) venue.get(5));
+                    ArrayList<Venue> finalVenueList = processVenuesResult(venuesArray);
 
-                        final StringBuilder photoUrlBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/photo?");
-                        photoUrlBuilder.append("key=" + getString(R.string.API_KEY));
-                        photoUrlBuilder.append("&photoreference=" + (String) venue.get(6));
-                        photoUrlBuilder.append("&maxwidth=1800");
-
-                        String photo = photoUrlBuilder.toString();
-
-                        finalVenueList.add(new Venue(photo, name, address, distance, status,
-                                rating, count));
-                    }
-                    System.out.println(finalVenueList);
                     recyclerView = Objects.requireNonNull(getView()).
                             findViewById(R.id.recyclerVenueDisplay);
                     recyclerView.setHasFixedSize(true);
@@ -343,13 +316,77 @@ public class NearbyFragment extends Fragment {
                     recyclerAdapter = new VenueAdapter(finalVenueList);
                     recyclerView.setLayoutManager(recyclerManager);
                     recyclerView.setAdapter(recyclerAdapter);
+                    textBlank.setVisibility(View.INVISIBLE);
                     recyclerView.setVisibility(View.VISIBLE);
                 }
             });
             getNearbyVenues.execute(getNearbyArgs);
+
+            String bowlUrl = placesUrlBuilder(latitude, longitude, "bowling_alley");
+
+            Object getNearbyArgsBowl[] = new Object[2];
+            getNearbyArgsBowl[0] = bowlUrl;
+            getNearbyArgsBowl[1] = location;
+
+            GetNearbyVenues getNearbyVenuesBowl = new GetNearbyVenues(new GetNearbyVenues.taskResponse() {
+                @Override
+                public void transferResults(ArrayList venuesArray) {
+                    ArrayList<Venue> finalVenueList = processVenuesResult(venuesArray);
+
+                    recyclerViewBowl = Objects.requireNonNull(getView()).
+                            findViewById(R.id.recyclerVenueDisplayBowl);
+                    recyclerViewBowl.setHasFixedSize(true);
+                    recyclerManager = new LinearLayoutManager(getContext(),
+                            LinearLayoutManager.HORIZONTAL, false);
+                    recyclerAdapter = new VenueAdapter(finalVenueList);
+                    recyclerViewBowl.setLayoutManager(recyclerManager);
+                    recyclerViewBowl.setAdapter(recyclerAdapter);
+                    textBlankBowl.setVisibility(View.INVISIBLE);
+                    recyclerViewBowl.setVisibility(View.VISIBLE);
+                }
+            });
+            getNearbyVenuesBowl.execute(getNearbyArgsBowl);
         } else {
             Toast.makeText(getActivity(), "Location not found. Please enter or search " +
                     "current location, then try again.", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private String placesUrlBuilder(double latitude, double longitude, String type) {
+        StringBuilder urlBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/" +
+                "nearbysearch/json?");
+        urlBuilder.append("key=" + getString(R.string.API_KEY));
+        urlBuilder.append("&location=" + latitude + "," + longitude);
+        urlBuilder.append("&rankby=distance");
+        urlBuilder.append("&type=" + type);
+        String url = urlBuilder.toString();
+        return url;
+    }
+
+    private ArrayList<Venue> processVenuesResult(ArrayList venuesArray) {
+        ArrayList<Venue> finalVenueList = new ArrayList<>();
+        for (int i = 0; i < venuesArray.size(); i++) {
+            List venue = (List) venuesArray.get(i);
+            String name = (String) venue.get(0);
+            String address = (String) venue.get(1);
+            float distance = Float.parseFloat((String) venue.get(2));
+            String status = (String) venue.get(3);
+            float rating = Float.parseFloat((String) venue.get(4));
+            float count = Float.parseFloat((String) venue.get(5));
+            String image = (String) venue.get(6);
+            String photo = "no_image";
+
+            if (image != "unknown") {
+                final StringBuilder photoUrlBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/photo?");
+                photoUrlBuilder.append("key=" + getString(R.string.API_KEY));
+                photoUrlBuilder.append("&photoreference=" + image);
+                photoUrlBuilder.append("&maxwidth=1800");
+                photo = photoUrlBuilder.toString();
+            }
+
+            finalVenueList.add(new Venue(photo, name, address, distance, status,
+                    rating, count));
+        }
+        return finalVenueList;
     }
 }
