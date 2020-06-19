@@ -82,7 +82,8 @@ public class GetNearbyVenues extends AsyncTask<Object, String, String> {
                 venueLocation.setLatitude(venueLatitude);
                 venueLocation.setLongitude(venueLongitude);
                 float inBetweenDistance = userLocation.distanceTo(venueLocation);
-                String venueDistance = Integer.toString(Math.round(inBetweenDistance));
+                //String venueDistance = Integer.toString(Math.round(inBetweenDistance));
+                String venueDistance = Float.toString(inBetweenDistance);
 
                 String venueStatus = "unknown";
                 try {
@@ -92,13 +93,36 @@ public class GetNearbyVenues extends AsyncTask<Object, String, String> {
                     e.printStackTrace();
                 }
 
+                String venuePhotoRef = "unknown";
+                try {
+                    JSONArray photoArray = resultObject.getJSONArray("photos");
+                    JSONObject photoObject = photoArray.getJSONObject(0);
+                    venuePhotoRef = photoObject.getString("photo_reference");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                String venueRating = "0";
+                String venueRatingCount = "0";
+                try {
+                    venueRating = resultObject.getString("rating");
+                    venueRatingCount = resultObject.getString("user_ratings_total");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 venue.add(venueName);
                 venue.add(venueAddress);
                 venue.add(venueDistance);
                 venue.add(venueStatus);
+                venue.add(venueRating);
+                venue.add(venueRatingCount);
+                venue.add(venuePhotoRef);
                 venuesArray.add(venue);
 
-                System.out.println(venueName + " | " + venueDistance + " | " + venueAddress + " | " + venueStatus);
+                System.out.println(venueName + " | " + venueAddress + " | " +
+                        venueDistance + " | " + venueStatus + " | " + venueRating + " | " +
+                        venueRatingCount + " | " + venuePhotoRef);
                 passer.transferResults(venuesArray);
             }
         } catch (JSONException e) {
