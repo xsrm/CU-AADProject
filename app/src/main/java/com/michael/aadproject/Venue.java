@@ -1,20 +1,26 @@
 package com.michael.aadproject;
 
 public class Venue {
-    private int venueImage;
+    private String venueImage;
     private String venueName;
     private String venueAddress;
+    private float venueDistance;
+    private String venueStatus;
     private float venueRating;
-    private int venueDistance;
+    private float venueRatingCount;
 
-    public Venue(int image, String name, String address, int distance) {
+    public Venue(String image, String name, String address, float distance, String status,
+                 float rating, float ratingCount) {
         venueImage = image;
         venueName = name;
         venueAddress = address;
         venueDistance = distance;
+        venueStatus = status;
+        venueRating = rating;
+        venueRatingCount = ratingCount;
     }
 
-    public int getVenueImage() {
+    public String getVenueImage() {
         return venueImage;
     }
 
@@ -26,7 +32,19 @@ public class Venue {
         return venueAddress;
     }
 
-    public int getVenueDistance() {
+    public float getVenueDistance() {
         return venueDistance;
+    }
+
+    public String getVenueStatus() {
+        return venueStatus;
+    }
+
+    public float getVenueRating() {
+        return venueRating;
+    }
+
+    public float getVenueRatingCount() {
+        return venueRatingCount;
     }
 }
