@@ -154,7 +154,8 @@ public class NearbyFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 System.out.println("Venue Search");
-                if (editLocation.getText().toString().equals("")) {
+                if (editLocation.getText().toString().equals("") &&
+                        textAddress.getText().toString().equals("NONE")) {
                     Toast.makeText(getActivity(), "Location not found.", Toast.LENGTH_SHORT);
                 } else {
                     retrieveNearbyVenues(userLocation);
@@ -305,7 +306,6 @@ public class NearbyFragment extends Fragment {
             urlBuilder.append("&type=gym");
 
             String url = urlBuilder.toString();
-            System.out.println(url);
 
             Object getNearbyArgs[] = new Object[2];
             getNearbyArgs[0] = url;
@@ -319,16 +319,31 @@ public class NearbyFragment extends Fragment {
                         List venue = (List) venuesArray.get(i);
                         String name = (String) venue.get(0);
                         String address = (String) venue.get(1);
-                        int distance = Integer.parseInt((String) venue.get(2));
-                        // get closed/open venue status
-                        finalVenueList.add(new Venue(R.drawable.ic_nearby, name, address, distance));
+                        float distance = Float.parseFloat((String) venue.get(2));
+                        String status = (String) venue.get(3);
+                        float rating = Float.parseFloat((String) venue.get(4));
+                        float count = Float.parseFloat((String) venue.get(5));
+
+                        final StringBuilder photoUrlBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/photo?");
+                        photoUrlBuilder.append("key=" + getString(R.string.API_KEY));
+                        photoUrlBuilder.append("&photoreference=" + (String) venue.get(6));
+                        photoUrlBuilder.append("&maxwidth=1800");
+
+                        String photo = photoUrlBuilder.toString();
+
+                        finalVenueList.add(new Venue(photo, name, address, distance, status,
+                                rating, count));
                     }
-                    recyclerView = Objects.requireNonNull(getView()).findViewById(R.id.recyclerVenueDisplay);
+                    System.out.println(finalVenueList);
+                    recyclerView = Objects.requireNonNull(getView()).
+                            findViewById(R.id.recyclerVenueDisplay);
                     recyclerView.setHasFixedSize(true);
-                    recyclerManager = new LinearLayoutManager(getContext());
+                    recyclerManager = new LinearLayoutManager(getContext(),
+                            LinearLayoutManager.HORIZONTAL, false);
                     recyclerAdapter = new VenueAdapter(finalVenueList);
                     recyclerView.setLayoutManager(recyclerManager);
                     recyclerView.setAdapter(recyclerAdapter);
+                    recyclerView.setVisibility(View.VISIBLE);
                 }
             });
             getNearbyVenues.execute(getNearbyArgs);
