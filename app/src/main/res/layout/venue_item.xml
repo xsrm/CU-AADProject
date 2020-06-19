@@ -1,62 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="@dimen/card_width"
+    android:layout_height="@dimen/card_height"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="4dp">
 
     <RelativeLayout
         android:id="@+id/relativeVenue"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_very_small" >
 
         <ImageView
             android:id="@+id/imageVenue"
-            android:layout_width="@dimen/image_size"
-            android:layout_height="@dimen/image_size"
-            android:layout_marginRight="@dimen/margin_medium"
-            android:padding="@dimen/sidebar_padding_small"/>
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/image_height"
+            android:layout_marginTop="@dimen/margin_negative"
+            android:layout_marginLeft="@dimen/margin_negative"
+            android:layout_marginRight="@dimen/margin_negative"
+            android:padding="@dimen/sidebar_padding_small"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/textViewVenueName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/imageVenue"
+            android:layout_below="@id/imageVenue"
+            android:layout_marginTop="@dimen/margin_extra_small"
             android:fontFamily="@font/montserrat"
             android:text="Venue Name"
-            android:textSize="@dimen/venue_text_size"/>
+            android:textSize="@dimen/venue_text_size"
+            android:maxLines="1"
+            android:ellipsize="end"/>
 
         <TextView
             android:id="@+id/textViewVenueAddress"
-            android:layout_width="wrap_content"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/textViewVenueName"
-            android:layout_toRightOf="@id/imageVenue"
             android:fontFamily="@font/roboto_light"
             android:text="Venue Address"
+            android:textSize="@dimen/venue_text_details_size"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+
+        <TextView
+            android:id="@+id/textViewVenueStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:fontFamily="@font/roboto_light"
+            android:text="Open/Closed"
             android:textSize="@dimen/venue_text_details_size"/>
 
         <TextView
             android:id="@+id/textViewVenueRating"
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textViewVenueAddress"
-            android:layout_toRightOf="@id/imageVenue"
+            android:layout_alignBaseline="@id/textViewVenueAddress"
+            android:layout_toStartOf="@id/textViewVenueRatingCount"
             android:fontFamily="@font/roboto_light"
-            android:text="Venue Rating"
+            android:drawableLeft="@drawable/ic_star"
+            android:text=" N/A"
+            android:textSize="@dimen/venue_text_details_size"/>
+
+        <TextView
+            android:id="@+id/textViewVenueRatingCount"
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/textViewVenueAddress"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/textViewVenueDistance"
+            android:fontFamily="@font/roboto_light"
+            android:text=" (0)"
             android:textSize="@dimen/venue_text_details_size"/>
 
         <TextView
             android:id="@+id/textViewVenueDistance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@id/textViewVenueName"
+            android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/margin_very_small"
+            android:layout_alignTop="@id/textViewVenueName"
             android:fontFamily="@font/roboto_light"
             android:text="Venue Distance"
             android:textSize="@dimen/venue_text_details_size" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_map"/>
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
