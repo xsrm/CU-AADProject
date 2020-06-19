@@ -94,16 +94,28 @@
         android:textSize="@dimen/text_small" />
 
     <TextView
-        android:id="@+id/textViewSuggested"
+        android:id="@+id/textViewGym"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginBottom="@dimen/margin_small"
-        android:layout_marginLeft="@dimen/margin_very_small"
         android:layout_below="@id/textViewAddress"
         android:fontFamily="@font/montserrat"
-        android:text="Featured locations"
+        android:text="Gymnasiums around you"
         android:textSize="@dimen/text_small_medium" />
+
+    <TextView
+        android:id="@+id/textViewBlank"
+        android:background="@color/colorLightGray"
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
+        android:layout_alignTop="@id/recyclerVenueDisplay"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-black"
+        android:textSize="@dimen/text_medium"
+        android:textAllCaps="true"
+        android:gravity="center"
+        android:text="Search results will be displayed here"
+        android:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerVenueDisplay"
@@ -112,21 +124,51 @@
         android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewSuggested"
-        android:padding="@dimen/margin_small"
+        android:layout_below="@id/textViewGym"
+        android:layout_marginLeft="@dimen/margin_negative_small_medium"
+        android:layout_marginRight="@dimen/margin_negative_medium"
+        android:layout_marginTop="@dimen/margin_very_small"
+        android:layout_marginBottom="@dimen/margin_small"
         android:visibility="invisible"/>
 
     <TextView
-        android:id="@+id/textViewAllLocations"
+        android:id="@+id/textViewBowl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginBottom="@dimen/margin_small"
-        android:layout_marginLeft="@dimen/margin_very_small"
-        android:layout_below="@id/recyclerVenueDisplay"
+        android:layout_marginTop="@dimen/margin_top_large"
+        android:layout_below="@id/textViewBlank"
         android:fontFamily="@font/montserrat"
-        android:text="All locations"
+        android:text="Bowling alleys around you"
         android:textSize="@dimen/text_small_medium" />
+
+    <TextView
+        android:id="@+id/textViewBlankBowl"
+        android:background="@color/colorLightGray"
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
+        android:layout_alignTop="@id/recyclerVenueDisplayBowl"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-black"
+        android:textSize="@dimen/text_medium"
+        android:textAllCaps="true"
+        android:gravity="center"
+        android:text="Search results will be displayed here"
+        android:visibility="visible" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerVenueDisplayBowl"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewBowl"
+        android:layout_marginLeft="@dimen/margin_negative_small_medium"
+        android:layout_marginRight="@dimen/margin_negative_medium"
+        android:layout_marginTop="@dimen/margin_very_small"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:visibility="invisible"/>
 
 </RelativeLayout>
 </ScrollView>
