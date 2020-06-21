@@ -23,7 +23,8 @@ public final class EntryHelper {
         return true;
     }
 
-    public static void saveEmail(SharedPreferences sharedPref, String EMAIL_KEY, EditText editEmail) {
+    public static void saveEmail(SharedPreferences sharedPref, String EMAIL_KEY,
+                                 EditText editEmail) {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(EMAIL_KEY, editEmail.getText().toString());
         editor.commit();
