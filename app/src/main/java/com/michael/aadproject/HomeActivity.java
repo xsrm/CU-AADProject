@@ -7,10 +7,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Service;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +30,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends AppCompatActivity implements
+        NavigationView.OnNavigationItemSelectedListener, SensorEventListener {
+    private SensorManager sensorManager;
+    private Sensor lightSensor;
+    private boolean lightSensorAvailability;
+    private float initialLightReading;
+    private boolean firstReading = true;
+
     private TextView textUserName;
     private TextView textUserEmail;
     private TextView textUserInitial;
@@ -41,6 +54,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        sensorManager = (SensorManager) getSystemService(Service.SENSOR_SERVICE);
+        if (sensorManager != null) {
+            lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        }
+        if (lightSensor == null) {
+            lightSensorAvailability = false;
+        } else {
+            lightSensorAvailability = true;
+        }
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -52,8 +75,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         textUserEmail = linearProfile.findViewById(R.id.textViewProfileEmail);
 
         drawerLayout = findViewById(R.id.drawerLayout);
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
-                toolbar, R.string.sidebar_open, R.string.sidebar_close);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,
+                drawerLayout, toolbar, R.string.sidebar_open, R.string.sidebar_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
@@ -72,7 +95,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getBaseContext(), "Error fetching data from database.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Error fetching data from database.",
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -113,6 +137,62 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (lightSensorAvailability) {
+            sensorManager.unregisterListener(this);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (lightSensorAvailability) {
+            sensorManager.registerListener(this, lightSensor,
+                    SensorManager.SENSOR_DELAY_NORMAL);
+        }
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (lightSensorAvailability && event.sensor.getType() == Sensor.TYPE_LIGHT) {
+            if (firstReading) {
+                initialLightReading = event.values[0];
+                firstReading = false;
+            }
+            WindowManager.LayoutParams layoutParams= getWindow().getAttributes();
+            float light = event.values[0];
+            System.out.println("LIGHT VAL: " + light);
+            if (light > 600) {
+                layoutParams.screenBrightness = 1.0f;
+            } else if (light < 300) {
+                layoutParams.screenBrightness = 0.3f;
+            }
+            getWindow().setAttributes(layoutParams);
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        if (lightSensorAvailability && sensor == lightSensor) {
+            WindowManager.LayoutParams layoutParams= getWindow().getAttributes();
+            if (accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE ||
+                    accuracy == SensorManager.SENSOR_STATUS_ACCURACY_LOW) {
+                Toast.makeText(this, "Light sensor is unreliable. Auto " +
+                        "brightness is disabled.", Toast.LENGTH_SHORT).show();
+                sensorManager.unregisterListener(this);
+                layoutParams.screenBrightness = initialLightReading;
+            } else if (accuracy == SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM ||
+                    accuracy == SensorManager.SENSOR_STATUS_ACCURACY_HIGH) {
+                Toast.makeText(this, "Light sensor is reliable. Auto " +
+                        "brightness is enabled.", Toast.LENGTH_SHORT).show();
+                sensorManager.registerListener(this, lightSensor,
+                        SensorManager.SENSOR_DELAY_NORMAL);
+            }
         }
     }
 }
