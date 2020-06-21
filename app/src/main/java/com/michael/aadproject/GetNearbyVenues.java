@@ -82,7 +82,6 @@ public class GetNearbyVenues extends AsyncTask<Object, String, String> {
                 venueLocation.setLatitude(venueLatitude);
                 venueLocation.setLongitude(venueLongitude);
                 float inBetweenDistance = userLocation.distanceTo(venueLocation);
-                //String venueDistance = Integer.toString(Math.round(inBetweenDistance));
                 String venueDistance = Float.toString(inBetweenDistance);
 
                 String venueStatus = "unknown";
