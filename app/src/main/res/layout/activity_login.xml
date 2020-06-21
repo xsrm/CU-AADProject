@@ -1,111 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/layout_top_padding"
-    android:paddingLeft="@dimen/layout_padding"
-    android:paddingRight="@dimen/layout_padding"
-    android:background="@drawable/gradient_main"
-    tools:context=".MainActivity">
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/textViewTitleLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_top"
-        android:fontFamily="sans-serif-black"
-        android:text="SIGN IN"
-        android:textSize="@dimen/text_large"
-        android:textColor="@android:color/white"/>
-
-    <TextView
-        android:id="@+id/textViewLoginEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textViewTitleLogin"
-        android:layout_marginTop="@dimen/margin_top"
-        android:fontFamily="sans-serif-black"
-        android:text="EMAIL ADDRESS"
-        android:textSize="@dimen/text_small"
-        android:textColor="@android:color/white" />
-
-    <EditText
-        android:id="@+id/editTextLoginEmail"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textViewLoginEmail"
-        android:layout_marginLeft="@dimen/margin_negative"
-        android:layout_marginRight="@dimen/margin_negative"
-        android:backgroundTint="@android:color/white"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:fontFamily="sans-serif-condensed-light"
-        android:textSize="@dimen/text_medium"
-        android:textColor="@android:color/white" />
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_main"
+        android:paddingLeft="@dimen/layout_padding"
+        android:paddingTop="@dimen/layout_top_padding"
+        android:paddingRight="@dimen/layout_padding"
+        tools:context=".SplashActivity">
 
-    <TextView
-        android:id="@+id/textViewLoginPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextLoginEmail"
-        android:layout_marginTop="@dimen/margin_top"
-        android:fontFamily="sans-serif-black"
-        android:text="PASSWORD"
-        android:textSize="@dimen/text_small"
-        android:textColor="@android:color/white" />
+        <TextView
+            android:id="@+id/textViewTitleLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_top"
+            android:fontFamily="sans-serif-black"
+            android:text="SIGN IN"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_large" />
 
-    <EditText
-        android:id="@+id/editTextLoginPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textViewLoginPassword"
-        android:layout_marginLeft="@dimen/margin_negative"
-        android:layout_marginRight="@dimen/margin_negative"
-        android:layout_marginBottom="@dimen/margin_very_small"
-        android:backgroundTint="@android:color/white"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:fontFamily="sans-serif-condensed-light"
-        android:textSize="@dimen/text_medium"
-        android:textColor="@android:color/white" />
+        <TextView
+            android:id="@+id/textViewLoginEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewTitleLogin"
+            android:layout_marginTop="@dimen/margin_top"
+            android:fontFamily="sans-serif-black"
+            android:text="EMAIL ADDRESS"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_small" />
 
-    <Button
-        android:id="@+id/buttonLogin"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/editTextLoginPassword"
-        android:layout_marginTop="@dimen/margin_top"
-        android:text="Log In"
-        android:background="@drawable/button_box"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="@dimen/text_small_medium"
-        android:textColor="@android:color/white" />
+        <EditText
+            android:id="@+id/editTextLoginEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewLoginEmail"
+            android:layout_marginLeft="@dimen/margin_negative"
+            android:layout_marginRight="@dimen/margin_negative"
+            android:backgroundTint="@android:color/white"
+            android:ems="10"
+            android:fontFamily="sans-serif-condensed-light"
+            android:inputType="textEmailAddress"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_medium" />
 
-    <ProgressBar
-        android:id="@+id/progressLogin"
-        style="@style/Widget.AppCompat.ProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/buttonLogin"
-        android:layout_alignBottom="@id/buttonLogin"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="@dimen/margin_very_small"
-        android:elevation="2dp"
-        android:indeterminate="false"
-        android:maxHeight="5dp"
-        android:visibility="invisible" />
+        <TextView
+            android:id="@+id/textViewLoginPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editTextLoginEmail"
+            android:layout_marginTop="@dimen/margin_top"
+            android:fontFamily="sans-serif-black"
+            android:text="PASSWORD"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_small" />
 
-    <TextView
-        android:id="@+id/textViewActionRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/buttonLogin"
-        android:layout_marginTop="@dimen/margin_top"
-        android:layout_centerInParent="true"
-        android:text="Don't have an account? Register here."
-        android:textSize="@dimen/text_small"
-        android:textColor="@android:color/white"/>
+        <EditText
+            android:id="@+id/editTextLoginPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewLoginPassword"
+            android:layout_marginLeft="@dimen/margin_negative"
+            android:layout_marginRight="@dimen/margin_negative"
+            android:layout_marginBottom="@dimen/margin_very_small"
+            android:backgroundTint="@android:color/white"
+            android:ems="10"
+            android:fontFamily="sans-serif-condensed-light"
+            android:inputType="textPassword"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_medium" />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/buttonLogin"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/editTextLoginPassword"
+            android:layout_marginTop="@dimen/margin_top"
+            android:background="@drawable/button_box"
+            android:fontFamily="sans-serif-medium"
+            android:text="Log In"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_small_medium" />
+
+        <ProgressBar
+            android:id="@+id/progressLogin"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/buttonLogin"
+            android:layout_alignBottom="@id/buttonLogin"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/margin_very_small"
+            android:elevation="2dp"
+            android:indeterminate="false"
+            android:maxHeight="5dp"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/textViewActionRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/buttonLogin"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/margin_top"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:text="Don't have an account? Register here."
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_small" />
+
+    </RelativeLayout>
+
+</ScrollView>
