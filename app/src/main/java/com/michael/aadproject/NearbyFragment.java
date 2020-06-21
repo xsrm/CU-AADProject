@@ -109,7 +109,8 @@ public class NearbyFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_nearby, container, false);
     }
 
@@ -154,7 +155,8 @@ public class NearbyFragment extends Fragment {
                 System.out.println("Venue Search");
                 if (editLocation.getText().toString().equals("") &&
                         textAddress.getText().toString().equals("NONE")) {
-                    Toast.makeText(getActivity(), "Location not found.", Toast.LENGTH_SHORT);
+                    Toast.makeText(getActivity(), "Location not found.",
+                            Toast.LENGTH_SHORT).show();
                 } else {
                     retrieveNearbyVenues(userLocation);
                 }
@@ -176,7 +178,8 @@ public class NearbyFragment extends Fragment {
 
     private void retrieveLastLocation() {
         if (checkLocationPermission()) {
-            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(
+                    getContext());
             fusedLocationProviderClient.getLastLocation().addOnCompleteListener(
                     new OnCompleteListener<Location>() {
                         @Override
@@ -204,7 +207,8 @@ public class NearbyFragment extends Fragment {
                             super.onLocationResult(locationResult);
                             LocationServices.getFusedLocationProviderClient(getActivity()).
                                     removeLocationUpdates(this);
-                            if (locationResult != null && locationResult.getLocations().size() > 0) {
+                            if (locationResult != null &&
+                                    locationResult.getLocations().size() > 0) {
                                 updateAddress(locationResult.getLastLocation());
                             }
                         }
@@ -250,7 +254,6 @@ public class NearbyFragment extends Fragment {
     }
 
     private String timeUpdateInfo() {
-        //DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         DateFormat tf = new SimpleDateFormat("h:mm aa");
         Date updateDate = Calendar.getInstance().getTime();
         if (lastUpdate == null) {
@@ -377,7 +380,8 @@ public class NearbyFragment extends Fragment {
             String photo = "no_image";
 
             if (image != "unknown") {
-                final StringBuilder photoUrlBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/photo?");
+                final StringBuilder photoUrlBuilder = new StringBuilder
+                        ("https://maps.googleapis.com/maps/api/place/photo?");
                 photoUrlBuilder.append("key=" + getString(R.string.API_KEY));
                 photoUrlBuilder.append("&photoreference=" + image);
                 photoUrlBuilder.append("&maxwidth=1800");
