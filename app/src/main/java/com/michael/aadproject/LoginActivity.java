@@ -6,10 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.OrientationEventListener;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -64,9 +62,6 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         sharedPreferences = getSharedPreferences("FitnessLocator", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.apply();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +81,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (validEmail && validPassword) {
                     progressBar.setVisibility(View.VISIBLE);
-                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(
+                            LoginActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
@@ -127,9 +123,6 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(getBaseContext(), (task.getException()).
                                             getMessage(), Toast.LENGTH_SHORT).show();
                                 }
-
-                                //String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
-
                             }
                         }
                     });
@@ -140,7 +133,8 @@ public class LoginActivity extends AppCompatActivity {
         textRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent toRegister = new Intent(LoginActivity.this, RegisterActivity.class);
+                Intent toRegister = new Intent(LoginActivity.this,
+                        RegisterActivity.class);
                 toRegister.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(toRegister);
             }
@@ -150,7 +144,9 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i(TAG, "onStart - " + getClass().getSimpleName() + " | Activity ID - " + this.hashCode());
+        Log.i(TAG, "onStart - " + getClass().getSimpleName() + " | Activity ID - " +
+                this.hashCode());
+
         if (sharedPreferences.contains(EMAIL_KEY)) {
             editEmail.setText(sharedPreferences.getString(EMAIL_KEY, ""));
         }
@@ -159,7 +155,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i(TAG, "onPause - " + getClass().getSimpleName() + " | Activity ID - " + this.hashCode());
+        Log.i(TAG, "onPause - " + getClass().getSimpleName() + " | Activity ID - " +
+                this.hashCode());
 
         editEmail = findViewById(R.id.editTextLoginEmail);
         editPassword = findViewById(R.id.editTextLoginPassword);
