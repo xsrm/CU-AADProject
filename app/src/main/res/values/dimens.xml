@@ -10,7 +10,12 @@
     <dimen name="sidebar_padding_extra_large">16dp</dimen>
     <dimen name="drawable_padding">40dp</dimen>
 
+    <dimen name="margin_negative_very_small">-1dp</dimen>
     <dimen name="margin_negative">-4dp</dimen>
+    <dimen name="margin_negative_small_medium">-6dp</dimen>
+    <dimen name="margin_negative_medium">-10dp</dimen>
+    <dimen name="margin_negative_large">-20dp</dimen>
+    <dimen name="margin_top_large">22dp</dimen>
     <dimen name="margin_top">18dp</dimen>
     <dimen name="margin_extra_small">3dp</dimen>
     <dimen name="margin_very_small">5dp</dimen>
@@ -34,9 +39,11 @@
     <dimen name="circle_dim">75dp</dimen>
 
     <dimen name="card_width">250dp</dimen>
-    <dimen name="card_height">200dp</dimen>
+    <dimen name="card_height">215dp</dimen>
+    <dimen name="recycler_height">225dp</dimen>
     <dimen name="image_width">225dp</dimen>
-    <dimen name="image_height">120dp</dimen>
+    <dimen name="image_height">135dp</dimen>
     <dimen name="venue_text_size">15sp</dimen>
     <dimen name="venue_text_details_size">12sp</dimen>
+    <dimen name="margin_image_negative">-10dp</dimen>
 </resources>
