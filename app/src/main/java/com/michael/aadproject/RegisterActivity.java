@@ -24,13 +24,14 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Objects;
+
 public class RegisterActivity extends AppCompatActivity {
     private EditText editFirstName, editLastName, editEmail, editPassword;
     private Button btnRegister;
     private TextView textLogin;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
-    //private FirebaseDatabase mDatabase;
     private DatabaseReference mDatabase;
 
     public static final String EMAIL_KEY = "EMAIL_KEY";
@@ -74,7 +75,6 @@ public class RegisterActivity extends AppCompatActivity {
                 boolean validLastName = EntryHelper.checkName(lastName);
                 boolean validEmail = EntryHelper.checkEmail(email);
                 boolean validPassword = EntryHelper.checkPassword(password);
-                //Toast.makeText(getApplicationContext(), Boolean.toString(validEmail), Toast.LENGTH_SHORT).show();
 
                 if (!validFirstName) {
                     editFirstName.setError("Please enter a valid first name. ");
@@ -102,43 +102,55 @@ public class RegisterActivity extends AppCompatActivity {
                                         String userId = task.getResult().getUser().getUid();
                                         User user = new User(firstName, lastName, email);
                                         mDatabase.child(userId).setValue(user);
-                                        // to update - mDatabaseRef.child("users").child(userId).child("name").setValue(name);
-
-                                        EntryHelper.saveEmail(sharedPreferences, EMAIL_KEY, editEmail);
+                                        EntryHelper.saveEmail(sharedPreferences, EMAIL_KEY,
+                                                editEmail);
                                         mAuth.signOut();
-                                        Toast.makeText(getBaseContext(),"Registration successful! Please log in.",
+                                        Toast.makeText(getBaseContext(),"Registration " +
+                                                        "successful! Please log in.",
                                                 Toast.LENGTH_SHORT).show();
-                                        Intent toLogin = new Intent(RegisterActivity.this, LoginActivity.class);
+                                        Intent toLogin = new Intent(
+                                                RegisterActivity.this,
+                                                LoginActivity.class);
                                         toLogin.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                                         startActivity(toLogin);
                                         finish();
                                     }
                                     else {
                                         progressBar.setVisibility(View.INVISIBLE);
-                                        String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
+                                        String errorCode = ((FirebaseAuthException)
+                                                Objects.requireNonNull(task.getException()))
+                                                .getErrorCode();
                                         switch (errorCode) {
                                             case "ERROR_EMAIL_ALREADY_IN_USE":
-                                                EntryHelper.saveEmail(sharedPreferences, EMAIL_KEY, editEmail);
-                                                editEmail.setError("Email is registered. Please log in or enter a different email address.");
+                                                EntryHelper.saveEmail(sharedPreferences,
+                                                        EMAIL_KEY, editEmail);
+                                                editEmail.setError("Email is registered. " +
+                                                        "Please log in or enter a different " +
+                                                        "email address.");
                                                 break;
                                             case "ERROR_WEAK_PASSWORD":
-                                                editPassword.setError("Weak password. Please enter a stronger password.");
+                                                editPassword.setError("Weak password. Please " +
+                                                        "enter a stronger password.");
                                                 break;
                                             default:
-                                                Toast.makeText(getBaseContext(), ((FirebaseAuthException) task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getBaseContext(),
+                                                        ((FirebaseAuthException)
+                                                                task.getException())
+                                                                .getMessage(),
+                                                        Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 }
                             });
                 }
-
             }
         });
 
         textLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent toLogin = new Intent(RegisterActivity.this, LoginActivity.class);
+                Intent toLogin = new Intent(RegisterActivity.this,
+                        LoginActivity.class);
                 toLogin.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(toLogin);
             }
@@ -149,16 +161,11 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i(TAG, "onStart - " + getClass().getSimpleName() + " | Activity ID - " + this.hashCode());
+        Log.i(TAG, "onStart - " + getClass().getSimpleName() + " | Activity ID - " +
+                this.hashCode());
         if (sharedPreferences.contains(EMAIL_KEY)) {
             editEmail.setText(sharedPreferences.getString(EMAIL_KEY, ""));
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.i(TAG, "onDestroy - " + getClass().getSimpleName() + " | Activity ID - " + this.hashCode());
     }
 }
 
