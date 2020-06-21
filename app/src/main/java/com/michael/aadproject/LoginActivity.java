@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.OrientationEventListener;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -155,12 +157,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        Log.i(TAG, "onResume - " + getClass().getSimpleName() + " | Activity ID - " + this.hashCode());
-    }
-
-    @Override
     protected void onPause() {
         super.onPause();
         Log.i(TAG, "onPause - " + getClass().getSimpleName() + " | Activity ID - " + this.hashCode());
@@ -169,17 +165,5 @@ public class LoginActivity extends AppCompatActivity {
         editPassword = findViewById(R.id.editTextLoginPassword);
         editEmail.setError(null);
         editPassword.setError(null);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.i(TAG, "onStop - " + getClass().getSimpleName() + " | Activity ID - " + this.hashCode());
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.i(TAG, "onDestroy - " + getClass().getSimpleName() + " | Activity ID - " + this.hashCode());
     }
 }
