@@ -2,25 +2,55 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/card_width"
     android:layout_height="@dimen/card_height"
+    android:layout_margin="@dimen/margin_small"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="4dp">
+    app:cardCornerRadius="4dp"
+    app:cardElevation="2dp">
 
     <RelativeLayout
         android:id="@+id/relativeVenue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_very_small" >
+        android:layout_marginTop="@dimen/margin_very_small"
+        android:layout_marginBottom="@dimen/margin_very_small"
+        android:layout_marginLeft="@dimen/margin_very_small"
+        android:layout_marginRight="@dimen/margin_very_small" >
 
         <ImageView
             android:id="@+id/imageVenue"
             android:layout_width="match_parent"
             android:layout_height="@dimen/image_height"
             android:layout_marginTop="@dimen/margin_negative"
-            android:layout_marginLeft="@dimen/margin_negative"
-            android:layout_marginRight="@dimen/margin_negative"
+            android:layout_marginLeft="@dimen/margin_image_negative"
+            android:layout_marginRight="@dimen/margin_image_negative"
             android:padding="@dimen/sidebar_padding_small"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"/>
+
+        <ImageView
+            android:id="@+id/imageBroken"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignBottom="@id/imageVenue"
+            android:layout_alignTop="@id/imageVenue"
+            android:padding="@dimen/sidebar_padding_small"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_broken_photo"
+            android:tint="@color/colorPrimaryMono"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/textViewBrokenImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="sans-serif-black"
+            android:text="IMAGE NOT FOUND"
+            android:textSize="@dimen/text_small"
+            android:textColor="@color/colorLightGray"
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/textViewVenueName"
@@ -36,7 +66,7 @@
 
         <TextView
             android:id="@+id/textViewVenueAddress"
-            android:layout_width="170dp"
+            android:layout_width="175dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/textViewVenueName"
             android:fontFamily="@font/roboto_light"
@@ -56,23 +86,28 @@
 
         <TextView
             android:id="@+id/textViewVenueRating"
-            android:layout_width="40dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/textViewVenueAddress"
             android:layout_toStartOf="@id/textViewVenueRatingCount"
             android:fontFamily="@font/roboto_light"
             android:drawableLeft="@drawable/ic_star"
+            android:layout_gravity="right"
+            android:gravity="right"
             android:text=" N/A"
             android:textSize="@dimen/venue_text_details_size"/>
 
         <TextView
             android:id="@+id/textViewVenueRatingCount"
-            android:layout_width="25dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/textViewVenueAddress"
             android:layout_alignParentRight="true"
             android:layout_below="@id/textViewVenueDistance"
+            android:layout_marginRight="@dimen/margin_very_small"
             android:fontFamily="@font/roboto_light"
+            android:layout_gravity="right"
+            android:gravity="right"
             android:text=" (0)"
             android:textSize="@dimen/venue_text_details_size"/>
 
@@ -83,15 +118,19 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@id/textViewVenueName"
+            android:background="@color/colorPrimaryDarkSemiAlpha"
             android:fontFamily="@font/roboto_light"
             android:text="Venue Distance"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/venue_text_details_size" />
 
         <ImageView
+            android:id="@+id/mapLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/margin_very_small"
             android:src="@drawable/ic_map"/>
     </RelativeLayout>
 
